@@ -1,0 +1,27 @@
+[
+    {
+      "email": "alicea@prisma.io",
+      "name": "Alice",
+      "address": "Rua do Caralho",
+      "password": "pwtest"
+    },
+    {
+      "email": "boba@prisma.io",
+      "name": "Bob",
+      "address": "Rua da Praia",
+      "password": "pw123"
+    },
+    {
+      "email": "carola@prisma.io",
+      "name": "Carol",
+      "address": "Avenida Central",
+      "password": "pass456"
+    },
+    {
+        "email": "miga@prisma.io",
+        "name": "mig",
+        "address": "Avenida Central",
+        "password": "pas456"
+      }
+  ]
+  
