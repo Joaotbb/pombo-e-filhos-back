@@ -8,14 +8,14 @@ datasource db {
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
+
 model User {
   id        Int       @id @default(autoincrement())
   name      String?
   address   String?
   email     String    @unique
   password  String
+  role     String  @default("CLIENT") 
   created_at DateTime  @default(now())
   updated_at DateTime?
-  deleted_at DateTime?
-  isAdmin   Boolean   @default(false)
 }

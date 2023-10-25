@@ -4,6 +4,7 @@ const fs = require('fs')
 
 const bcrypt = require('bcrypt')
 
+// TODO: this function will be a util --- pass to a controller
 async function hashPassword(password) {
   return await bcrypt.hash(password, 10)
 }
@@ -13,6 +14,8 @@ async function seedUsers() {
   const usersData = JSON.parse(
     fs.readFileSync(`${__dirname}/./data/users.json`, 'utf-8')
   )
+  // delete all useres before running
+  await prisma.user.deleteMany({})
 
   for (const userData of usersData) {
     const existingUser = await prisma.user.findUnique({
@@ -22,7 +25,7 @@ async function seedUsers() {
     if (existingUser) {
       console.log('User already exists:', existingUser)
     } else {
-      // Hash the password before saving to the database
+      //   Hash the password before saving to the database
       userData.password = await hashPassword(userData.password)
       const newUser = await prisma.user.create({
         data: userData
