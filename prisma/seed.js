@@ -35,14 +35,39 @@ async function seedUsers() {
   }
 }
 
-async function seedProducts() {
-  return 'teste'
+async function seedSuppliers() {
+  const suppliersData = JSON.parse(
+    fs.readFileSync(`${__dirname}/./data/suppliers.json`, 'utf-8')
+  )
+
+  // await prisma.supplier.deleteMany({})
+
+  for (const supplierData of suppliersData) {
+    const existingSupplier = await prisma.supplier.findUnique({
+      where: { email: supplierData.email }
+    })
+
+    if (existingSupplier) {
+      console.log('Supplier already exists:', existingSupplier)
+    } else {
+      const newSupplier = await prisma.supplier.create({
+        data: supplierData
+      })
+
+      console.log('Supplier created:', newSupplier)
+    }
+  }
 }
+
+// async function seedProducts() {
+//   return 'teste'
+// }
 
 async function main() {
   try {
-    await seedUsers()
-    await seedProducts()
+    // await seedUsers()
+    await seedSuppliers()
+    // await seedProducts()
   } catch (error) {
     console.error('Error seeding user:', error)
   } finally {

@@ -1,0 +1,23 @@
+[
+  {
+    "name": "José",
+    "address": "123 Tech Ave, Silicon Valley",
+    "company": "ElectroCorp",
+    "phone": "123-456-7890",
+    "email": "migaada@prisma.is"
+  },
+  {
+    "name": "Pedro",
+    "address": "456 Auto St, Motor City",
+    "company": "AutoMakers Inc.",
+    "phone": "987-654-3210",
+    "email": "testemail@prisma.is"
+  },
+  {
+    "name": "Pedro",
+    "address": "456 Auto St, Motor City",
+    "company": "AutoMakers Inc.",
+    "phone": "987-654-3211",
+    "email": "pedro@prisma.is"
+  }
+]

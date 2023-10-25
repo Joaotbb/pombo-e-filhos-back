@@ -1,6 +1,7 @@
 const { PrismaClient } = require('@prisma/client')
-const jwt = require('jsonwebtoken')
+const { generateToken } = require('../utils/authUtils')
 const bcrypt = require('bcrypt')
+
 const prisma = new PrismaClient()
 
 async function comparePasswords(plainPassword, hashedPassword) {
@@ -36,15 +37,36 @@ const login = async (req, res) => {
   })
 }
 
-// TODO:PASS THIS FUNCTION TO AN UTIL
-function generateToken(params) {
-  return jwt.sign({ id: params }, process.env.JWT_ACCESS_TOKEN, {
-    expiresIn: '10h'
-  })
-}
+const register = async (req, res) => {
+  const { email, password } = req.body
 
-const register = (req, res) => {
-  res.send('Register Controller :)')
+  // Check if the mail is already exists
+  const existingUser = await prisma.user.findUnique({
+    where: { email }
+  })
+
+  if (existingUser) {
+    return res.status(400).send({ error: 'Email already exists' })
+  }
+
+  // Hash pw before save on DB
+  const hashedPassword = await bcrypt.hash(password, 10)
+
+  // Create new user
+  const newUser = await prisma.user.create({
+    data: {
+      email,
+      password: hashedPassword
+    }
+  })
+
+  // Generates a token for a new user
+  const token = generateToken(newUser.id)
+
+  res.status(201).send({
+    user: newUser,
+    token
+  })
 }
 
 module.exports = {
