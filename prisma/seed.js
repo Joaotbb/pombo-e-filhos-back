@@ -1,7 +1,6 @@
 const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
 const fs = require('fs')
-
 const bcrypt = require('bcrypt')
 
 // TODO: this function will be a util --- pass to a controller
