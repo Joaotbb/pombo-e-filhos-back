@@ -17,7 +17,7 @@ const login = async (req, res) => {
   // }
 
   const user = await prisma.user.findUnique({
-    where: { email }
+    where: { email: email }
   })
 
   if (!user) {
