@@ -10,8 +10,9 @@ const connectDB = require('./database/connection')
 const supplierRoutes = require('./routes/supplierRoutes')
 const auth = require('./routes/authRoutes')
 
-app.use('/api/v1/', supplierRoutes)
+
 app.use('/api/v1/', auth)
+app.use('/api/v1/', supplierRoutes)
 
 const start = async () => {
   try {
