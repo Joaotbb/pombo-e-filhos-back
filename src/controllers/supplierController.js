@@ -107,7 +107,6 @@ const updateSupplier = async (req, res) => {
   }
 }
 
-
 // Delete a supplier
 const deleteSupplier = async (req, res) => {
   try {

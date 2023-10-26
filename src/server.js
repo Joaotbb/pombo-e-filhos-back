@@ -8,10 +8,11 @@ app.use(cors())
 
 const connectDB = require('./database/connection')
 const supplierRoutes = require('./routes/supplierRoutes')
+const productsRoutes = require('./routes/productsRoutes')
 const auth = require('./routes/authRoutes')
 
-
 app.use('/api/v1/', auth)
+app.use('/api/v1/', productsRoutes)
 app.use('/api/v1/', supplierRoutes)
 
 const start = async () => {
