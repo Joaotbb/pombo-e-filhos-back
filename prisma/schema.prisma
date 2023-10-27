@@ -28,17 +28,18 @@ model Supplier {
   company     String
   email     String    @unique
   phone       String    @unique
-  // products Product[]
+  products Product[]
 }
 
-// model Product {
-//   id           Int       @id @default(autoincrement())
-//   name         String
-//   description  String
-//   price        Float
-//   stock        Stock?
-//   suppliers    Supplier[]
-// }
+model Product {
+  id           Int       @id @default(autoincrement())
+  name         String
+  description  String
+  serialNumber String? @unique 
+  price        Float
+  stock        Int
+  suppliers    Supplier[]
+}
 
 // model Client {
 //   id           Int       @id @default(autoincrement())
