@@ -18,7 +18,8 @@
     "email": "carol@prisma.ios",
     "name": "Carol",
     "address": "Avenida Central",
-    "password": "pass456"
+    "password": "pass456",
+    "role":"ADMINISTRATOR"
   },
   {
     "email": "miga@prisma.is",

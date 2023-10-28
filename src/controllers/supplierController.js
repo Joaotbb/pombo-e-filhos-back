@@ -8,7 +8,7 @@ const getAllSuppliers = async (req, res) => {
   res.send(allSuppliers)
 }
 
-// Get a single supplier by email
+// Get a single supplier by ID
 const getSupplier = async (req, res) => {
   try {
     const { id } = req.params
@@ -121,7 +121,8 @@ const deleteSupplier = async (req, res) => {
     await prisma.supplier.delete({
       where: { id: parseInt(id) }
     })
-    res.status(204).send('Supplier deleted successfully')
+    console.log('string')
+    res.status(200).send('Supplier deleted successfully')
   } catch (error) {
     console.error(error)
     res.status(500).send('An error occurred while deleting the supplier')

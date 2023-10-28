@@ -10,15 +10,15 @@ const auth = async (req, res, next) => {
       return res.status(401).send({ error: 'No token provided' });
     }
 
-    // Dividir o header em suas partes
+    // Divide header into 2 parts
     const parts = authHeader.split(' ');
     const [_, token] = parts;
 
-    // Verificar o token e extrair o ID do usuário
+    // Check token and extract user ID
     const decoded = jwt.verify(token, process.env.JWT_ACCESS_TOKEN);
     const { id } = decoded;
 
-    // Encontrar o usuário no banco de dados
+    // Find ID on DB
     const user = await prisma.user.findUnique({
       where: { id },
     });

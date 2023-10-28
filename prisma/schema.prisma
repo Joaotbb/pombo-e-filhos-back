@@ -8,7 +8,6 @@ datasource db {
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
-
 model User {
   id        Int       @id @default(autoincrement())
   name      String?
@@ -19,7 +18,6 @@ model User {
   created_at DateTime  @default(now())
   updated_at DateTime?
 }
-
 
 model Supplier {
   id           Int       @id @default(autoincrement())

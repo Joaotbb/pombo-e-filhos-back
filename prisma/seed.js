@@ -63,7 +63,7 @@ async function seedSuppliers() {
 async function seedProducts() {
   const productsData = products
 
-  // Uncomment if you want to delete all products before running
+  // Uncomment to delete all products before running
   // await prisma.product.deleteMany({});
 
   for (const productData of productsData) {
@@ -78,8 +78,8 @@ async function seedProducts() {
 async function main() {
   try {
     // await seedUsers()
-    // await seedSuppliers()
-    await seedProducts()
+    await seedSuppliers()
+    // await seedProducts()
   } catch (error) {
     console.error('Error seeding user:', error)
   } finally {
