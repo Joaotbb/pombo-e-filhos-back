@@ -33,14 +33,22 @@ const createProduct = async (req, res) => {
   try {
     const { name, description, serialNumber, price, stock, suppliers } =
       req.body
+    // Variable to get all Suppliers ID's not existing
+    const notFoundSuppliers = []
 
     for (const supplier of suppliers.connect) {
-      // console.log(supplier.id)
       const existingSupplier = await prisma.supplier.findUnique({
         where: { id: supplier.id }
       })
-      if (!existingSupplier)
-        return res.status(400).json(`Supplier ${supplier.id} does not exist `)
+      if (!existingSupplier) {
+        notFoundSuppliers.push(supplier.id)
+      }
+    }
+
+    if (notFoundSuppliers.length > 0) {
+      return res
+        .status(400)
+        .json({ error: 'Suppliers not found', ids: notFoundSuppliers })
     }
 
     // CREATE HANDLER TO SIMPLIFY CODE
