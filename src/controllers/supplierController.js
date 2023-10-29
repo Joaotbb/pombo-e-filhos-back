@@ -22,8 +22,6 @@ const getSupplier = asyncHandler(async (req, res) => {
   } else {
     res.status(404).send('Supplier not found')
   }
-
-  res.status(500).send('An error occurred while retrieving the supplier')
 })
 
 // Create a new supplier

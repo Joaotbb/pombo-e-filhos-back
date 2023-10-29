@@ -22,8 +22,6 @@ const getProduct = asyncHandler(async (req, res) => {
   } else {
     res.status(404).send('Product not found')
   }
-
-  res.status(500).send('An error occurred while retrieving the supplier')
 })
 
 // Create new Product
