@@ -22,15 +22,13 @@ const login = asyncHandler(async (req, res) => {
   })
 
   if (!user) {
-    return res.status(400).send({ error: 'User not found!' })
+    throw new Error('User not Found')
   }
 
   const isMatch = await comparePasswords(password, user.password)
   if (!isMatch) {
-    return res.status(400).send({ error: 'Invalid Password' })
+    throw new Error('Password ')
   }
-
-  // delete user.password
 
   res.send({
     user,
@@ -47,7 +45,7 @@ const register = asyncHandler(async (req, res) => {
   })
 
   if (existingUser) {
-    return res.status(400).send({ error: 'Email already exists' })
+    throw new Error('Email already exist')
   }
 
   // Hash pw before save on DB

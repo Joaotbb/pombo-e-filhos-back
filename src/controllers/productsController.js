@@ -20,7 +20,7 @@ const getProduct = asyncHandler(async (req, res) => {
   if (oneProduct) {
     res.status(200).json({ success: true, oneProduct })
   } else {
-    res.status(404).send('Product not found')
+    throw new Error('Product not found')
   }
 })
 
@@ -41,26 +41,12 @@ const createProduct = asyncHandler(async (req, res) => {
   }
 
   if (notFoundSuppliers.length > 0) {
-    return res
-      .status(400)
-      .json({ error: 'Suppliers not found', ids: notFoundSuppliers })
+    throw new Error('Suppliers not found: ' + notFoundSuppliers.join(', '))
   }
 
-  // CREATE HANDLER TO SIMPLIFY CODE
-  TODO: if (!name) {
-    return res.status(400).json({ error: 'Name is required' })
-  }
-
-  if (!description) {
-    return res.status(400).json({ error: 'Description is required' })
-  }
-
-  if (!serialNumber) {
-    return res.status(400).json({ error: 'Serial Number is required' })
-  }
-
-  if (!price) {
-    return res.status(400).json({ error: 'Price is required' })
+  // Simplified validation TODO: could be further refined)
+  if (!name || !description || !serialNumber || !price) {
+    throw new Error('Missing required fields')
   }
 
   // CHECK IF THE SERIAL NUMBER EXISTES ON DB
@@ -77,46 +63,45 @@ const createProduct = asyncHandler(async (req, res) => {
     data: req.body
   })
   res.status(201).json({ success: true, newProduct })
-
-  res.status(500).send('An error occurred while creating the Product')
 })
 
 // Update Product
-const updateProduct = asyncHandler(async (req, res) => {
+const updateProduct = asyncHandler(async (req, res, next) => {
   const { id } = req.params
 
   const product = await prisma.product.findUnique({
     where: { id: parseInt(id) }
   })
 
-  if (!product)
-    return res.status(404).send('Product with ID ' + id + ' not found')
+  if (!product) {
+    throw new Error('Product with ID ' + id + ' not found')
+  }
 
   const updatedProduct = await prisma.product.update({
     where: { id: parseInt(product.id) },
     data: req.body
   })
-  res.status(200).json({ success: true, updatedProduct })
 
-  res.status(500).send('An error occurred while updating the Product')
+  res.status(200).json({ success: true, updatedProduct })
 })
 
 // Delete a Product
-const deleteProduct = asyncHandler(async (req, res) => {
+const deleteProduct = asyncHandler(async (req, res, next) => {
   const { id } = req.params
 
   const product = await prisma.product.findUnique({
     where: { id: parseInt(id) }
   })
 
-  if (!product) return res.status(400).send('Product not found')
+  if (!product) {
+    throw new Error('Product not found')
+  }
 
   await prisma.product.delete({
     where: { id: parseInt(id) }
   })
-  res.status(200).send('Product deleted successfully')
 
-  res.status(500).send('An error occurred while deleting the Product')
+  res.status(200).send('Product deleted successfully')
 })
 
 module.exports = {
