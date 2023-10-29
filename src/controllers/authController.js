@@ -1,6 +1,7 @@
 const { PrismaClient } = require('@prisma/client')
 const { generateToken } = require('../utils/authUtils')
 const bcrypt = require('bcrypt')
+const asyncHandler = require('../middlewares/asyncHandler')
 
 const prisma = new PrismaClient()
 
@@ -8,7 +9,7 @@ async function comparePasswords(plainPassword, hashedPassword) {
   return await bcrypt.compare(plainPassword, hashedPassword)
 }
 
-const login = async (req, res) => {
+const login = asyncHandler(async (req, res) => {
   const { email, password } = req.body
 
   //TODO:create handler for empty POST's (server burning when send empty POST)
@@ -29,15 +30,15 @@ const login = async (req, res) => {
     return res.status(400).send({ error: 'Invalid Password' })
   }
 
-  delete user.password
+  // delete user.password
 
   res.send({
     user,
     token: generateToken(user.id)
   })
-}
+})
 
-const register = async (req, res) => {
+const register = asyncHandler(async (req, res) => {
   const { email, password } = req.body
 
   // Check if the mail is already exists
@@ -67,7 +68,7 @@ const register = async (req, res) => {
     user: newUser,
     token
   })
-}
+})
 
 module.exports = {
   login,
