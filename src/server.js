@@ -4,6 +4,7 @@ const cors = require('cors')
 const connectDB = require('./database/connection')
 const supplierRoutes = require('./routes/supplierRoutes')
 const productsRoutes = require('./routes/productsRoutes')
+const usersRoutes = require('./routes/usersRoutes')
 const auth = require('./routes/authRoutes')
 const errorHandler = require('./middlewares/errorHandler')
 
@@ -18,6 +19,7 @@ app.use(errorHandler)
 app.use('/api/v1/', auth)
 app.use('/api/v1/', productsRoutes)
 app.use('/api/v1/', supplierRoutes)
+app.use('/api/v1/', usersRoutes)
 
 const start = async () => {
   try {

@@ -77,8 +77,8 @@ async function seedProducts() {
 
 async function main() {
   try {
-    await seedUsers()
-    await seedSuppliers()
+    // await seedUsers()
+    // await seedSuppliers()
     await seedProducts()
   } catch (error) {
     console.error('Error seeding user:', error)
