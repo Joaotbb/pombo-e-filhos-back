@@ -9,55 +9,60 @@ datasource db {
 }
 
 model User {
-  id        Int       @id @default(autoincrement())
-  name      String?
-  address   String?
-  email     String    @unique
-  password  String
-  role     String  @default("CLIENT") 
+  id         Int       @id @default(autoincrement())
+  name       String?
+  address    String?
+  email      String    @unique
+  password   String
+  role       String    @default("CLIENT")
   created_at DateTime  @default(now())
   updated_at DateTime?
+  orders     Order[]   
 }
 
 model Supplier {
-  id           Int       @id @default(autoincrement())
-  name         String
-  address       String
-  company     String
+  id        Int       @id @default(autoincrement())
+  name      String
+  address   String
+  company   String
   email     String    @unique
-  phone       String    @unique
-  products Product[]
+  phone     String    @unique
+  products  Product[] 
+  orders    Order[]   
 }
 
 model Product {
-  id           Int       @id @default(autoincrement())
-  name         String
-  description  String
-  serialNumber String? @unique 
-  price        Float
-  stock        Int
-  suppliers    Supplier[]
+  id          Int         @id @default(autoincrement())
+  name        String
+  description String
+  serialNumber String?    @unique
+  price       Float
+  stock       Int
+  suppliers   Supplier[]  
+  orderItems  OrderItem[] 
 }
 
-// model Client {
-//   id           Int       @id @default(autoincrement())
-//   name         String
-//   products     ProductPurchased[]
-//   user         User      @relation(fields: [userId], references: [id])
-//   userId       Int
-// }
+model Order {
+  id          Int         @id @default(autoincrement())
+  date        DateTime    @default(now())
+  shipDate    DateTime?   
+  status      String      
+  orderType   String      
+  userId      Int?        
+  supplierId  Int?        
+  orderItems  OrderItem[] 
 
-// model Stock {
-//   id       Int     @id @default(autoincrement())
-//   product  Product @relation(fields: [productId], references: [id])
-//   productId Int
-//   quantity Int
-// }
+  user        User?       @relation(fields: [userId], references: [id])
+  supplier    Supplier?   @relation(fields: [supplierId], references: [id])
+}
 
-// model Order {
-//   id       Int    @id @default(autoincrement())
-//   client   Client @relation(fields: [clientId], references: [id])
-//   clientId Int
-//   shipDate DateTime
-// }
+model OrderItem {
+  id        Int     @id @default(autoincrement())
+  orderId   Int
+  productId Int
+  quantity  Int
+  unitPrice Float
 
+  order    Order    @relation(fields: [orderId], references: [id])
+  product  Product  @relation(fields: [productId], references: [id])
+}
