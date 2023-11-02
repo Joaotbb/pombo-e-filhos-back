@@ -46,8 +46,8 @@ model Order {
   id          Int         @id @default(autoincrement())
   date        DateTime    @default(now())
   shipDate    DateTime?   
-  status      String      
-  orderType   String      
+  status      String?       @default("pending") 
+  orderType   String?    @default("regular") 
   userId      Int?        
   supplierId  Int?        
   orderItems  OrderItem[] 

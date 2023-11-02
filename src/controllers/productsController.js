@@ -22,7 +22,7 @@ const getAllProductsBySupplier = asyncHandler(async (req, res) => {
       }
     },
     include: {
-      suppliers: true // Isso inclui os detalhes do fornecedor nos resultados
+      suppliers: true // Info about suppliers on result
     }
   })
 
@@ -90,34 +90,32 @@ const getProduct = asyncHandler(async (req, res) => {
   }
 })
 
-
 //Get Product in stock
 const getProductStock = asyncHandler(async (req, res) => {
-  const { productId } = req.params; // Obter o ID do produto dos parâmetros da requisição
+  const { productId } = req.params // Get ID product from query params
 
-  // Buscar o produto pelo ID
+  // Search Product by ID
   const product = await prisma.product.findUnique({
     where: { id: Number(productId) },
     include: {
-      suppliers: true // Incluir informações dos fornecedores do produto
+      suppliers: true // Info about suppliers of the product
     }
-  });
+  })
 
   if (product) {
     const stockInfo = {
       productId: product.id,
       name: product.name,
       description: product.description,
-      stock: product.stock, // Quantidade em estoque do produto
-      suppliers: product.suppliers // Informações dos fornecedores
-    };
+      stock: product.stock, // Product stock
+      suppliers: product.suppliers // Info from suppliers
+    }
 
-    res.status(200).json({ success: true, stockInfo });
+    res.status(200).json({ success: true, stockInfo })
   } else {
-    throw new Error('Product not found');
+    throw new Error('Product not found')
   }
-});
-
+})
 
 // Create new Product
 const createProduct = asyncHandler(async (req, res) => {
