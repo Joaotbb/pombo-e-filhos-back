@@ -88,6 +88,27 @@ const createOrder = asyncHandler(async (req, res, next) => {
   }
 })
 
+//Update Stock (like an order to supplier)
+const updateStock = asyncHandler(async (req, res) => {
+  const productToUpdate = await prisma.product.findUnique({
+    where: { id: parseInt(req.params.productId) }
+  })
+  console.log(req.params.productId, req.params.stockValue)
+
+  const newStock =
+    parseInt(productToUpdate.stock) + parseInt(req.params.stockValue)
+
+  await prisma.product.update({
+    where: { id: parseInt(req.params.productId) },
+    data: {
+      stock: newStock
+    }
+  })
+  res
+    .status(200)
+    .json({ success: true, message: 'Product stock was successfull updated' })
+})
+
 // Update Order
 const updateOrder = asyncHandler(async (req, res) => {
   const { id } = req.params
@@ -126,6 +147,7 @@ module.exports = {
   getAllOrders,
   getOrder,
   createOrder,
+  updateStock,
   updateOrder,
   deleteOrder
 }
