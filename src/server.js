@@ -20,8 +20,9 @@ app.use(errorHandler)
 app.use('/api/v1/', auth)
 app.use('/api/v1/', productsRoutes)
 app.use('/api/v1/', supplierRoutes)
-app.use('/api/v1/', usersRoutes)
+
 app.use('/api/v1/', ordersRoutes)
+app.use('/api/v1/', usersRoutes)
 
 const start = async () => {
   try {
