@@ -130,17 +130,28 @@ const updateOrder = asyncHandler(async (req, res) => {
 // Delete Order
 const deleteOrder = asyncHandler(async (req, res) => {
   const { id } = req.params
+  const orderId = parseInt(id)
 
+  // Check if the order exists
   const order = await prisma.order.findUnique({
-    where: { id: parseInt(id) }
+    where: { id: orderId }
   })
 
-  if (!order) throw new Error('Order not found')
+  if (!order) {
+    return res.status(404).json({ success: false, message: 'Order not found' })
+  }
 
+  // Exclude all orderItems associated
+  await prisma.orderItem.deleteMany({
+    where: { orderId: orderId }
+  })
+
+  // After delete the order
   await prisma.order.delete({
-    where: { id: parseInt(id) }
+    where: { id: orderId }
   })
-  res.status(200).send('Order deleted successfully')
+
+  res.status(200).json({ success: true, message: 'Order deleted successfully' })
 })
 
 module.exports = {
