@@ -4,12 +4,53 @@ const asyncHandler = require('../middlewares/asyncHandler')
 const prisma = new PrismaClient()
 
 // Get all suppliers
+/**
+ * @swagger
+ * /suppliers:
+ *   get:
+ *     summary: Get all suppliers
+ *     description: Retrieve a list of all suppliers.
+ *     tags: [Suppliers]
+ *     responses:
+ *       200:
+ *         description: An array of suppliers.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Supplier'
+ */
 const getAllSuppliers = asyncHandler(async (req, res) => {
   const allSuppliers = await prisma.supplier.findMany({})
   res.send(allSuppliers)
 })
 
 // Get a single supplier by ID
+/**
+ * @swagger
+ * /suppliers/{id}:
+ *   get:
+ *     summary: Get a supplier by ID
+ *     description: Get a specific supplier by their unique ID.
+ *     tags: [Suppliers]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: Unique id of the supplier to get
+ *     responses:
+ *       200:
+ *         description: A single supplier object.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Supplier'
+ *       404:
+ *         description: Supplier not found.
+ */
 const getSupplier = asyncHandler(async (req, res, next) => {
   const { id } = req.params
 
@@ -25,6 +66,29 @@ const getSupplier = asyncHandler(async (req, res, next) => {
 })
 
 // Create a new supplier
+/**
+ * @swagger
+ * /suppliers:
+ *   post:
+ *     summary: Create a new supplier
+ *     description: Create a new supplier with the provided data.
+ *     tags: [Suppliers]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Supplier'
+ *     responses:
+ *       201:
+ *         description: Supplier created successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Supplier'
+ *       400:
+ *         description: Required fields are missing or the phone/email is already in use.
+ */
 const createSupplier = asyncHandler(async (req, res, next) => {
   const { name, address, company, email, phone } = req.body
 
@@ -64,6 +128,32 @@ const createSupplier = asyncHandler(async (req, res, next) => {
 })
 
 // Update a supplier
+/**
+ * @swagger
+ * /suppliers/{id}:
+ *   put:
+ *     summary: Update a supplier
+ *     description: Update a supplier's information by their ID.
+ *     tags: [Suppliers]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: Id of the supplier to update
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Supplier'
+ *     responses:
+ *       200:
+ *         description: Supplier updated successfully.
+ *       404:
+ *         description: Supplier not found.
+ */
 const updateSupplier = asyncHandler(async (req, res) => {
   const { id } = req.params
   const supplier = await prisma.supplier.findUnique({
@@ -82,6 +172,27 @@ const updateSupplier = asyncHandler(async (req, res) => {
 })
 
 // Delete a supplier
+/**
+ * @swagger
+ * /suppliers/{id}:
+ *   delete:
+ *     summary: Delete a supplier
+ *     description: Delete a supplier by their ID.
+ *     tags: [Suppliers]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: Id of the supplier to delete
+ *     responses:
+ *       200:
+ *         description: Supplier deleted successfully.
+ *       404:
+ *         description: Supplier not found.
+ */
+
 const deleteSupplier = asyncHandler(async (req, res) => {
   const { id } = req.params
 

@@ -9,6 +9,46 @@ async function comparePasswords(plainPassword, hashedPassword) {
   return await bcrypt.compare(plainPassword, hashedPassword)
 }
 
+/**
+ * @swagger
+ * /login:
+ *   post:
+ *     summary: User Login
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *               - password
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 description: User email for Login
+ *               password:
+ *                 type: string
+ *                 format: password
+ *                 description: User password for Login
+ *     responses:
+ *       200:
+ *         description: Login Done!!
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 user:
+ *                   $ref: '#/components/schemas/User'
+ *                 token:
+ *                   type: string
+ *                   description: JWT Access Token
+ *       400:
+ *         description: Email &/or password not provided or incorrect
+ */
 const login = asyncHandler(async (req, res) => {
   const { email, password } = req.body
 
@@ -36,6 +76,46 @@ const login = asyncHandler(async (req, res) => {
   })
 })
 
+/**
+ * @swagger
+ * /register:
+ *   post:
+ *     summary: Registra um novo usuário
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *               - password
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 description: Email para registrar o usuário
+ *               password:
+ *                 type: string
+ *                 format: password
+ *                 description: Senha para o usuário
+ *     responses:
+ *       201:
+ *         description: Usuário registrado com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 user:
+ *                   $ref: '#/components/schemas/User'
+ *                 token:
+ *                   type: string
+ *                   description: Token de acesso JWT
+ *       400:
+ *         description: Email já está em uso
+ */
 const register = asyncHandler(async (req, res) => {
   const { email, password } = req.body
 
