@@ -66,6 +66,9 @@ const getOrder = asyncHandler(async (req, res, next) => {
   res.status(200).json({ success: true, oneOrder })
 })
 
+// Get Orders By date
+//TODO: A FAZER ENDPOINT
+
 // Create a new Order
 /**
  * @swagger
@@ -157,11 +160,11 @@ const createOrder = asyncHandler(async (req, res, next) => {
 //Update Stock (like an order to supplier)
 /**
  * @swagger
- * /products/{productId}/stock/{stockValue}:
+ * /orders/{productId}/{stockValue}:
  *   put:
  *     summary: Update product stock
- *     description: Updates the stock for a given product by the specified value.
- *     tags: [Products]
+ *     description: Updates the stock for a given product by the specified value (ex. restock).
+ *     tags: [Orders]
  *     parameters:
  *       - in: path
  *         name: productId
@@ -194,7 +197,7 @@ const updateStock = asyncHandler(async (req, res) => {
   const productToUpdate = await prisma.product.findUnique({
     where: { id: parseInt(req.params.productId) }
   })
-  console.log(req.params.productId, req.params.stockValue)
+  // console.log(req.params.productId, req.params.stockValue)
 
   const newStock =
     parseInt(productToUpdate.stock) + parseInt(req.params.stockValue)
@@ -230,7 +233,7 @@ const updateStock = asyncHandler(async (req, res) => {
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/UpdateOrder'
+ *             $ref: '#/components/schemas/Order'
  *     responses:
  *       200:
  *         description: Order updated successfully.

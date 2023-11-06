@@ -278,7 +278,6 @@ const getProductStock = asyncHandler(async (req, res) => {
  *       404:
  *         description: Suppliers not found.
  */
-
 const createProduct = asyncHandler(async (req, res) => {
   const { name, description, serialNumber, price, stock, suppliers } = req.body
 
