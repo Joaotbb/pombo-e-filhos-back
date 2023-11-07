@@ -6,7 +6,7 @@ const products = [
     price: 10.99,
     stock: 100,
     suppliers: {
-      connect: [{ id: 7 }, { id: 9 }]
+      connect: [{ id: 1 }, { id: 2 }]
     }
   },
   {
@@ -16,7 +16,7 @@ const products = [
     price: 15.5,
     stock: 80,
     suppliers: {
-      connect: [{ id: 9 }]
+      connect: [{ id: 3 }]
     }
   },
   {
@@ -26,7 +26,7 @@ const products = [
     price: 10.99,
     stock: 100,
     suppliers: {
-      connect: [{ id: 9 }, { id: 10 }, { id: 12 }]
+      connect: [{ id: 3 }, { id: 2 }, { id: 1 }]
     }
   }
 ]

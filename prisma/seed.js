@@ -15,7 +15,7 @@ async function seedUsers() {
     fs.readFileSync(`${__dirname}/./data/users.json`, 'utf-8')
   )
   // delete all useres before running
-  await prisma.user.deleteMany({})
+  // await prisma.user.deleteMany({})
 
   for (const userData of usersData) {
     const existingUser = await prisma.user.findUnique({
@@ -78,9 +78,8 @@ async function seedProducts() {
 async function seedOrders() {
   const ordersData = JSON.parse(
     fs.readFileSync(`${__dirname}/./data/orders.json`, 'utf-8')
-  );
+  )
 
-  // Descomentar se quiser apagar todos os pedidos antes 
   // await prisma.order.deleteMany({});
   // await prisma.orderItem.deleteMany({});
 
@@ -94,9 +93,9 @@ async function seedOrders() {
         userId: orderData.userId,
         supplierId: orderData.supplierId
       }
-    });
+    })
 
-    console.log('Order created:', newOrder);
+    console.log('Order created:', newOrder)
 
     for (const product of orderData.products) {
       await prisma.orderItem.create({
@@ -106,17 +105,16 @@ async function seedOrders() {
           quantity: product.quantity,
           unitPrice: product.unitPrice
         }
-      });
+      })
     }
   }
 }
 
-
 async function main() {
   try {
-    // await seedUsers()
-    // await seedSuppliers()
-    // await seedProducts()
+    await seedUsers()
+    await seedSuppliers()
+    await seedProducts()
     await seedOrders()
   } catch (error) {
     console.error('Error seeding user:', error)
