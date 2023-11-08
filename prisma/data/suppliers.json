@@ -1,23 +1,65 @@
 [
   {
-    "name": "José",
+    "name": "TECHGADGETS LDA",
     "address": "123 Tech Ave, Silicon Valley",
     "company": "ElectroCorp",
     "phone": "123-456-7890",
     "email": "migaada@prisma.is"
   },
   {
-    "name": "Pedro",
+    "name": "AUTOPHASE INC.",
     "address": "456 Auto St, Motor City",
     "company": "AutoMakers Inc.",
     "phone": "987-654-3210",
     "email": "testemail@prisma.is"
   },
   {
-    "name": "Pedro",
+    "name": "BYD",
     "address": "456 Auto St, Motor City",
     "company": "AutoMakers Inc.",
     "phone": "987-654-3211",
     "email": "pedro@prisma.is"
+  },
+  {
+    "name": "GREENENERGY CO",
+    "address": "789 Renewable Rd, Green City",
+    "company": "EcoPower Ltd.",
+    "phone": "321-987-6543",
+    "email": "contact@greenenergy.is"
+  },
+  {
+    "name": "FARMFRESH ORGANICS",
+    "address": "246 Harvest Ln, Farmville",
+    "company": "Organic Harvest LLP",
+    "phone": "654-321-9876",
+    "email": "info@farmfresh.org"
+  },
+  {
+    "name": "AQUABLUE WATERWORKS",
+    "address": "369 Riverside Dr, Aqua City",
+    "company": "PureWater Supplies",
+    "phone": "258-369-1472",
+    "email": "support@aquablue.is"
+  },
+  {
+    "name": "SKYHIGH CONSTRUCTIONS",
+    "address": "852 Sky Ln, Builderburg",
+    "company": "BuildIt Enterprises",
+    "phone": "369-258-1470",
+    "email": "sales@skyhighcons.is"
+  },
+  {
+    "name": "COSMIC IT SOLUTIONS",
+    "address": "159 Data Dr, Techton",
+    "company": "Cosmic Computing Inc.",
+    "phone": "147-258-3691",
+    "email": "service@cosmicitsol.is"
+  },
+  {
+    "name": "VIRTUHEALTH MEDICS",
+    "address": "753 Health Ave, Meditown",
+    "company": "VirtuHealth Services",
+    "phone": "753-951-8524",
+    "email": "contact@virtuhealthmed.is"
   }
 ]

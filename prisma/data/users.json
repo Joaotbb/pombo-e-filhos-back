@@ -2,10 +2,9 @@
   {
     "email": "alice@prisma.ios",
     "name": "Alice",
-    "address": "Rua do Caralho",
+    "address": "Rua do Carvalho",
     "password": "pwtest",
     "role": "ADMINISTRATOR"
-
   },
   {
     "email": "bob@prisma.ios",
@@ -19,7 +18,7 @@
     "name": "Carol",
     "address": "Avenida Central",
     "password": "pass456",
-    "role":"ADMINISTRATOR"
+    "role": "ADMINISTRATOR"
   },
   {
     "email": "miga@prisma.is",
@@ -32,5 +31,54 @@
     "name": "mig",
     "address": "Avenida Central",
     "password": "pas456"
+  },
+  {
+    "email": "dave@prisma.ios",
+    "name": "Dave",
+    "address": "Rua de Pedra",
+    "password": "pwDav987",
+    "role": "EMPLOYEE"
+  },
+  {
+    "email": "eve@prisma.ios",
+    "name": "Eve",
+    "address": "Travessa dos Jardins",
+    "password": "eveSecure123",
+    "role": "MANAGER"
+  },
+  {
+    "email": "frank@prisma.ios",
+    "name": "Frank",
+    "address": "Alameda das Acácias",
+    "password": "frankPass789",
+    "role": "EMPLOYEE"
+  },
+  {
+    "email": "grace@prisma.ios",
+    "name": "Grace",
+    "address": "Avenida dos Estados",
+    "password": "grace1234",
+    "role": "ADMINISTRATOR"
+  },
+  {
+    "email": "henry@prisma.ios",
+    "name": "Henry",
+    "address": "Beco das Rosas",
+    "password": "henrySafePass",
+    "role": "EMPLOYEE"
+  },
+  {
+    "email": "isabel@prisma.ios",
+    "name": "Isabel",
+    "address": "Rua do Sol",
+    "password": "isa9876",
+    "role": "EMPLOYEE"
+  },
+  {
+    "email": "jason@prisma.ios",
+    "name": "Jason",
+    "address": "Rua da Lua",
+    "password": "jasonPass123",
+    "role": "CLIENT"
   }
 ]
