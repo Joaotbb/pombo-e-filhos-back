@@ -55,6 +55,7 @@ const getAllOrders = asyncHandler(async (req, res) => {
 const getOrder = asyncHandler(async (req, res, next) => {
   const { id } = req.params
 
+  console.log(req, 'string req')
   const oneOrder = await prisma.order.findUnique({
     where: { id: Number(id) }
   })
@@ -67,7 +68,89 @@ const getOrder = asyncHandler(async (req, res, next) => {
 })
 
 // Get Orders By date
-//TODO: A FAZER ENDPOINT
+/**
+ * @swagger
+ * /orders/date:
+ *   get:
+ *     summary: Get orders by date range
+ *     description: Retrieve a list of orders within a specified start and end date.
+ *     tags: [Orders]
+ *     parameters:
+ *       - in: query
+ *         name: startDate
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: date
+ *         description: The start date for filtering orders (inclusive)
+ *       - in: query
+ *         name: endDate
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: date
+ *         description: The end date for filtering orders (inclusive)
+ *     responses:
+ *       200:
+ *         description: A list of orders within the specified date range.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Order'
+ *       400:
+ *         description: Invalid or missing date parameters.
+ *       404:
+ *         description: No orders found for the specified date range.
+ */
+const getOrdersByDate = asyncHandler(async (req, res) => {
+  let { startDate, endDate } = req.params
+
+  // Verifica se as datas são válidas
+  if (!startDate || !endDate) {
+    return res.status(400).json({
+      success: false,
+      message: 'You must provide both startDate and endDate query parameters'
+    })
+  }
+
+  // Converte as strings de datas para objetos Date
+  startDate = new Date(startDate)
+  endDate = new Date(endDate)
+
+  startDate.setHours(0, 0, 0, 0)
+  endDate.setHours(23, 59, 59, 999)
+
+  if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+    return res
+      .status(400)
+      .json({ success: false, message: 'Invalid startDate or endDate' })
+  }
+
+  const orders = await prisma.order.findMany({
+    where: {
+      created_at: {
+        gte: startDate,
+        lte: endDate
+      }
+    },
+    include: {
+      orderItems: true,
+      user: true,
+      supplier: true
+    }
+  })
+
+  if (!orders.length) {
+    return res.status(404).json({
+      success: false,
+      message: 'No orders found for the specified date range'
+    })
+  }
+
+  res.status(200).json({ success: true, data: orders })
+})
 
 // Create a new Order
 /**
@@ -320,6 +403,7 @@ const deleteOrder = asyncHandler(async (req, res) => {
 module.exports = {
   getAllOrders,
   getOrder,
+  getOrdersByDate,
   createOrder,
   updateStock,
   updateOrder,

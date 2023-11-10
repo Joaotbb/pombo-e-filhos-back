@@ -11,7 +11,7 @@
     "name": "Bob",
     "address": "Rua da Praia",
     "password": "pw123",
-    "role": "EMPLOYEE"
+    "role": "CLIENT"
   },
   {
     "email": "carol@prisma.ios",
@@ -44,7 +44,7 @@
     "name": "Eve",
     "address": "Travessa dos Jardins",
     "password": "eveSecure123",
-    "role": "MANAGER"
+    "role": "ADMINISTRATOR"
   },
   {
     "email": "frank@prisma.ios",
