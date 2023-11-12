@@ -55,7 +55,6 @@ const getAllOrders = asyncHandler(async (req, res) => {
 const getOrder = asyncHandler(async (req, res, next) => {
   const { id } = req.params
 
-  console.log(req, 'string req')
   const oneOrder = await prisma.order.findUnique({
     where: { id: Number(id) }
   })
@@ -107,7 +106,7 @@ const getOrder = asyncHandler(async (req, res, next) => {
 const getOrdersByDate = asyncHandler(async (req, res) => {
   let { startDate, endDate } = req.params
 
-  // Verifica se as datas são válidas
+  // Verify if dates are valid
   if (!startDate || !endDate) {
     return res.status(400).json({
       success: false,
@@ -115,7 +114,7 @@ const getOrdersByDate = asyncHandler(async (req, res) => {
     })
   }
 
-  // Converte as strings de datas para objetos Date
+  // Turn date's strings to Date objects
   startDate = new Date(startDate)
   endDate = new Date(endDate)
 
@@ -280,7 +279,6 @@ const updateStock = asyncHandler(async (req, res) => {
   const productToUpdate = await prisma.product.findUnique({
     where: { id: parseInt(req.params.productId) }
   })
-  // console.log(req.params.productId, req.params.stockValue)
 
   const newStock =
     parseInt(productToUpdate.stock) + parseInt(req.params.stockValue)

@@ -8,8 +8,8 @@ const ordersRoutes = require('./routes/ordersRoutes')
 const usersRoutes = require('./routes/usersRoutes')
 const auth = require('./routes/authRoutes')
 const errorHandler = require('./middlewares/errorHandler')
-const swaggerUi = require('swagger-ui-express');
-const swaggerSpec = require('../src/swagger/swaggerConfig');
+const swaggerUi = require('swagger-ui-express')
+const swaggerSpec = require('../src/swagger/swaggerConfig')
 
 const app = express()
 
@@ -18,8 +18,7 @@ app.use(express.json())
 app.use(cors())
 app.use(morgan('combined'))
 app.use(errorHandler)
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 
 app.use('/api/v1/', auth)
 app.use('/api/v1/', productsRoutes)

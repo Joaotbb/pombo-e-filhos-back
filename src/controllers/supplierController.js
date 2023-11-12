@@ -92,9 +92,17 @@ const getSupplier = asyncHandler(async (req, res, next) => {
 const createSupplier = asyncHandler(async (req, res, next) => {
   const { name, address, company, email, phone } = req.body
 
-  // TODO: refine in order to get personlized msgs for each error
-  if (!name || !address || !company || !phone) {
-    throw new Error('Required fields are missing')
+  if (!name) {
+    return res.status(400).send({ error: 'Name is required' })
+  }
+  if (!address) {
+    return res.status(400).send({ error: 'Address is required' })
+  }
+  if (!company) {
+    return res.status(400).send({ error: 'Company is required' })
+  }
+  if (!phone) {
+    return res.status(400).send({ error: 'Phone is required' })
   }
 
   const existingSupplierByPhone = await prisma.supplier.findUnique({
@@ -192,7 +200,6 @@ const updateSupplier = asyncHandler(async (req, res) => {
  *       404:
  *         description: Supplier not found.
  */
-
 const deleteSupplier = asyncHandler(async (req, res) => {
   const { id } = req.params
 

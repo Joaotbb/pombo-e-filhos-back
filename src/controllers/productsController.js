@@ -297,7 +297,6 @@ const createProduct = asyncHandler(async (req, res) => {
     throw new Error('Suppliers not found: ' + notFoundSuppliers.join(', '))
   }
 
-  // Simplified validation TODO: could be further refined)
   if (!name || !description || !serialNumber || !price) {
     throw new Error('Missing required fields')
   }

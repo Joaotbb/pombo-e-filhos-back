@@ -52,24 +52,30 @@ async function comparePasswords(plainPassword, hashedPassword) {
 const login = asyncHandler(async (req, res) => {
   const { email, password } = req.body
 
-  //TODO:create handler for empty POST's (server burning when send empty POST)
-  // if (!user || !password) {
-  //   return res.status(400).send({ error: 'email and passawrd are mandatory' })
-  // }
+  // Check if email or password is not provided in the request
+  if (!email || !password) {
+    return res.status(400).send({ error: 'Email and password are mandatory' })
+  }
 
+  // Find the user by email
   const user = await prisma.user.findUnique({
     where: { email: email }
   })
 
+  // Check if user does not exist
   if (!user) {
-    throw new Error('User not Found')
+    return res.status(404).send({ error: 'User not found' })
   }
 
+  // Compare the provided password with the user's password
   const isMatch = await comparePasswords(password, user.password)
+
+  // Check if password does not match
   if (!isMatch) {
-    throw new Error('Password ')
+    return res.status(401).send({ error: 'Invalid password' })
   }
 
+  // Send the response with user details and token
   res.send({
     user,
     token: generateToken(user.id)

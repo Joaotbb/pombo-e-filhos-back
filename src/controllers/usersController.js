@@ -101,9 +101,17 @@ const getUser = asyncHandler(async (req, res, next) => {
 const createUser = asyncHandler(async (req, res, next) => {
   const { name, address, email, password } = req.body
 
-  // TODO: refine in order to get personlized msgs for each error
-  if (!name || !address || !email || !password) {
-    throw new Error('Required fields are missing')
+  if (!name) {
+    throw new Error('Name is required')
+  }
+  if (!address) {
+    throw new Error('Address is required')
+  }
+  if (!email) {
+    throw new Error('Email is required')
+  }
+  if (!password) {
+    throw new Error('Password is required')
   }
 
   const emailRegex = /\S+@\S+\.\S+/

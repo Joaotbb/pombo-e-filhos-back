@@ -1,6 +1,6 @@
 const mysql = require('mysql2')
 
-// connection to databse on Clever Cloud with .env file
+// Connection to databse on Clever Cloud with .env file
 const connectDB = () => {
   const connection = mysql.createConnection({
     host: process.env.DB_HOST,

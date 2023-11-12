@@ -4,7 +4,7 @@ const fs = require('fs')
 const bcrypt = require('bcrypt')
 const products = require('./data/products')
 
-// TODO: this function will be a util --- pass to a controller
+
 async function hashPassword(password) {
   return await bcrypt.hash(password, 10)
 }
