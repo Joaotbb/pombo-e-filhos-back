@@ -25,36 +25,56 @@ This backend project, developed as part of the Web Full Stack Programming course
 
 ## Setup and Installation
 
-```bash
 # Clone the repository
+
+```bash
 git clone <repository-url>
+```
 
 # Install dependencies
+
+```bash
 npm install
+```
 
-# Setup MySQL database and update .env file
+# Setup MySQL Database and Update .env File
 
-# Run migrations
+Ensure your MySQL database is set up and update the `.env` file with your database credentials.
+
+# Run Migrations
+
+To set up your database schema:
+
+```bash
 npm run migration
+```
 
-# Seed the database (for initial data)
+# Seed the Database (For Initial Data)
+
+To seed the database with initial data:
+
+```bash
 npx prisma db seed
+```
 
-# Start the server
+# Start the Server
+
+To start the server:
+
+```bash
 npm start
-Resetting and Seeding the Database
+```
+
+# Resetting and Seeding the Database
+
 If you need to reset your database and inject new data:
 
-bash
-Copy code
-# This will erase all existing data and reset migrations
+```bash
 npx prisma migrate reset
-API Documentation
-Access the API documentation at /api-docs on the server. It provides details about API endpoints, parameters, and responses.
-
-
-
-Contributing
-Contributions are welcome. Please ensure to discuss major changes with the project maintainers.
-
 ```
+
+# This command will erase all existing data and reset migrations
+
+### API Documentation
+
+Access detailed API documentation at /api-docs on the server. This includes information on API endpoints, parameters, and responses.
