@@ -28,7 +28,7 @@ This backend project, developed as part of the Web Full Stack Programming course
 ## Clone the repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/backendproject-turma77092/ProjetoBE-Joao.git
 ```
 
 ## Install dependencies
