@@ -39,7 +39,7 @@ npm install
 
 ## Setup MySQL Database and Update .env File
 
-Ensure your MySQL database is set up and update the `.env` file with your database credentials.
+Ensure your MySQL database is set up. Then update the `.env` file with your database credentials. For guidance on the required variables, check the `.env.example` file at the root of the project directory.
 
 ## Run Migrations
 
