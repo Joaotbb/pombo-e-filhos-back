@@ -23,25 +23,25 @@ This backend project, developed as part of the Web Full Stack Programming course
 - **Bcrypt** (Password Hashing)
 - **Other Utilities**: Body-parser, Cors, Morgan, Nodemon
 
-## Setup and Installation
+# Setup and Installation
 
-# Clone the repository
+## Clone the repository
 
 ```bash
 git clone <repository-url>
 ```
 
-# Install dependencies
+## Install dependencies
 
 ```bash
 npm install
 ```
 
-# Setup MySQL Database and Update .env File
+## Setup MySQL Database and Update .env File
 
 Ensure your MySQL database is set up and update the `.env` file with your database credentials.
 
-# Run Migrations
+## Run Migrations
 
 To set up your database schema:
 
@@ -49,7 +49,7 @@ To set up your database schema:
 npm run migration
 ```
 
-# Seed the Database (For Initial Data)
+## Seed the Database (For Initial Data)
 
 To seed the database with initial data:
 
@@ -57,7 +57,7 @@ To seed the database with initial data:
 npx prisma db seed
 ```
 
-# Start the Server
+## Start the Server
 
 To start the server:
 
@@ -65,7 +65,7 @@ To start the server:
 npm start
 ```
 
-# Resetting and Seeding the Database
+## Resetting and Seeding the Database
 
 If you need to reset your database and inject new data:
 
@@ -73,8 +73,6 @@ If you need to reset your database and inject new data:
 npx prisma migrate reset
 ```
 
-# This command will erase all existing data and reset migrations
-
-### API Documentation
+# API Documentation
 
 Access detailed API documentation at /api-docs on the server. This includes information on API endpoints, parameters, and responses.
