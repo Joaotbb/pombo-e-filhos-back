@@ -6,7 +6,7 @@ const options = {
     info: {
       title: 'API - Pombo e Filhos',
       version: '1.0.0',
-      description: 'API documentation for pedidos do Pombo e Filhos'
+      description: 'API documentation for requests of Pombo e Filhos'
     },
     servers: [
       {

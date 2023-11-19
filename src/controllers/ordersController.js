@@ -157,7 +157,7 @@ const getOrdersByDate = asyncHandler(async (req, res) => {
  * /orders:
  *   post:
  *     summary: Create a new order
- *     description: Create a new order and update product stock accordingly.
+ *     description: Create a new order for either a supplier or a client and update product stock accordingly. The order cannot be associated with both a supplier and a client simultaneously.
  *     tags: [Orders]
  *     requestBody:
  *       required: true
@@ -172,10 +172,12 @@ const getOrdersByDate = asyncHandler(async (req, res) => {
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Order'
+ *       400:
+ *         description: Invalid request, e.g., both supplierId and userId provided.
  *       401:
- *         description: No token provided or invalid token.
+ *         description: Authentication error - No token provided or invalid token.
  *       500:
- *         description: Server error or could not create order.
+ *         description: Server error or could not create order. Possible issues include database constraints, such as non-existent supplier or product.
  */
 const createOrder = asyncHandler(async (req, res, next) => {
   try {
