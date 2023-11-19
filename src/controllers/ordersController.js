@@ -188,13 +188,26 @@ const createOrder = asyncHandler(async (req, res, next) => {
     }
 
     const decoded = jwt.verify(token, process.env.JWT_ACCESS_TOKEN)
-    const userId = decoded.id
+    const userIdFromToken = decoded.id
 
-    const { supplierId, status, orderType } = req.body
+    const { supplierId, status, orderType, products } = req.body
+
+    // Check if userId is provided on query
+    const userIdProvided = req.body.userId != null
+
+    if (userIdProvided && supplierId) {
+      return res.status(400).json({
+        success: false,
+        message: 'Order must be either to a supplier or a client, not both'
+      })
+    }
+
+    // Define userId for the request
+    let userId = userIdProvided ? req.body.userId : userIdFromToken
 
     const newOrder = await prisma.order.create({
       data: {
-        userId,
+        userId: supplierId ? null : userId,
         supplierId,
         status,
         orderType
@@ -206,9 +219,21 @@ const createOrder = asyncHandler(async (req, res, next) => {
         where: { id: parseInt(product.productId) }
       })
 
+      if (!productToUpdate) {
+        return res
+          .status(404)
+          .json({ success: false, message: 'Product not found' })
+      }
+
       console.info(productToUpdate.stock, 'Current stock')
 
       const finalStock = productToUpdate.stock - product.quantity
+
+      if (finalStock < 0) {
+        return res
+          .status(400)
+          .json({ success: false, message: 'Insufficient stock' })
+      }
 
       console.info('Final stock here:', finalStock)
 
@@ -231,10 +256,13 @@ const createOrder = asyncHandler(async (req, res, next) => {
 
     res.status(201).json({ success: true, newOrder })
   } catch (error) {
+    console.error(error)
     if (error.name === 'JsonWebTokenError') {
       res.status(401).json({ success: false, message: 'Invalid Token' })
     } else {
-      res.status(500).json({ success: false, message: 'Server Error' })
+      res
+        .status(500)
+        .json({ success: false, message: 'Server Error', error: error.message })
     }
   }
 })
