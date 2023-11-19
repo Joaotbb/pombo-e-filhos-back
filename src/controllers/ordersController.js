@@ -257,12 +257,25 @@ const createOrder = asyncHandler(async (req, res, next) => {
     res.status(201).json({ success: true, newOrder })
   } catch (error) {
     console.error(error)
+
     if (error.name === 'JsonWebTokenError') {
       res.status(401).json({ success: false, message: 'Invalid Token' })
     } else {
-      res
-        .status(500)
-        .json({ success: false, message: 'Server Error', error: error.message })
+      // Mensagens de erro detalhadas
+      let errorMessage = 'Server Error'
+      let possibleCauses = []
+
+      if (error.message.includes('Foreign key constraint failed')) {
+        possibleCauses.push('Check if the supplier exists in your database')
+        possibleCauses.push('Check if the product exists in your database')
+        errorMessage = 'Database constraint error'
+      }
+
+      res.status(500).json({
+        success: false,
+        message: errorMessage,
+        possibleCauses: possibleCauses
+      })
     }
   }
 })
