@@ -69,20 +69,20 @@ const getOrder = asyncHandler(async (req, res, next) => {
 // Get Orders By date
 /**
  * @swagger
- * /orders/date:
+ * /orders/{startDate}/{endDate}:
  *   get:
  *     summary: Get orders by date range
  *     description: Retrieve a list of orders within a specified start and end date.
  *     tags: [Orders]
  *     parameters:
- *       - in: query
+ *       - in: path
  *         name: startDate
  *         required: true
  *         schema:
  *           type: string
  *           format: date
  *         description: The start date for filtering orders (inclusive)
- *       - in: query
+ *       - in: path
  *         name: endDate
  *         required: true
  *         schema:
