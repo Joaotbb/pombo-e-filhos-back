@@ -106,7 +106,9 @@ const getOrder = asyncHandler(async (req, res, next) => {
 const getOrdersByDate = asyncHandler(async (req, res) => {
   let { startDate, endDate } = req.params
 
-  // Verify if dates are valid
+  // console.log('Received startDate:', startDate)
+  // console.log('Received endDate:', endDate)
+
   if (!startDate || !endDate) {
     return res.status(400).json({
       success: false,
@@ -114,12 +116,14 @@ const getOrdersByDate = asyncHandler(async (req, res) => {
     })
   }
 
-  // Turn date's strings to Date objects
   startDate = new Date(startDate)
   endDate = new Date(endDate)
 
   startDate.setHours(0, 0, 0, 0)
   endDate.setHours(23, 59, 59, 999)
+
+  // console.log('Processed startDate:', startDate)
+  // console.log('Processed endDate:', endDate)
 
   if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
     return res
@@ -140,6 +144,8 @@ const getOrdersByDate = asyncHandler(async (req, res) => {
       supplier: true
     }
   })
+
+  // console.log('Orders found:', orders)
 
   if (!orders.length) {
     return res.status(404).json({
