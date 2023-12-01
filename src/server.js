@@ -15,7 +15,13 @@ const app = express()
 
 require('dotenv').config()
 app.use(express.json())
-app.use(cors())
+const corsOptions = {
+  origin: 'http://127.0.0.1:5173', 
+  credentials: true, 
+};
+
+app.use(cors(corsOptions));
+
 app.use(morgan('combined'))
 app.use(errorHandler)
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
